@@ -13,6 +13,10 @@ export class CreateAbilityComponent {
     abilityName: new FormControl<string | null>(null, Validators.required)
   });
 
+  public attentionAbility: boolean = false;
+
+  constructor(private readonly manageAbilitiesServices: ManageAbilitiesService) {}
+
   /**
    * Функция создания способности героя.
    */
@@ -28,7 +32,4 @@ export class CreateAbilityComponent {
 
     }
   }
-  public attentionAbility: boolean = false;
-
-  constructor(private readonly manageAbilitiesServices: ManageAbilitiesService) {}
 }

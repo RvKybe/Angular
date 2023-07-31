@@ -7,12 +7,13 @@ import {IHero} from "../../model/hero.interface";
   templateUrl: './output.component.html',
   styleUrls: ['./output.component.scss']
 })
-export class OutputComponent implements OnInit{
+export class OutputComponent implements OnInit {
+
   public heroes:IHero[] = [];
+
+  constructor(private readonly manageHeroService: ManageHeroesService) {}
 
   ngOnInit() {
     this.manageHeroService.heroStream$.subscribe(item => this.heroes = item);
   }
-
-  constructor(private readonly manageHeroService: ManageHeroesService) {}
 }

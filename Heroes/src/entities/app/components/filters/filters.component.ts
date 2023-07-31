@@ -9,34 +9,39 @@ import {IAbility} from "../../model/ability.interface";
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.scss']
 })
-export class FiltersComponent implements OnInit{
+export class FiltersComponent implements OnInit {
+
   public possibleAbilities!: IAbility[];
   public sort: string = 'fromLowLevel';
   public iconName: string = 'chevronup';
   public sortName: string = 'возрастанию';
 
-  form = new FormGroup({
+  form:FormGroup = new FormGroup( {
       levelFloor: new FormControl(),
       levelCeil: new FormControl(),
       abilities: new FormControl(),
       searchText: new FormControl(),
   })
+  constructor(
+    private readonly manageAbilitiesService: ManageAbilitiesService,
+    private readonly manageHeroesService: ManageHeroesService
+  ) {}
 
   ngOnInit(): void {
-      this.abilityUpdateSubscribe();
-      this.manageAbilitiesService.getAbilities();
-      this.form.valueChanges
-          .subscribe((): void => {
-              this.manageHeroesService.filterHeroes(this.form.value);
-          });
+    this.abilityUpdateSubscribe();
+    this.manageAbilitiesService.getAbilities();
+    this.form.valueChanges
+      .subscribe((): void => {
+        this.manageHeroesService.filterHeroes(this.form.value);
+      });
   }
 
   /**
    * Подписка на изменения в списке способностей
    */
   public abilityUpdateSubscribe():void {
-        this.manageAbilitiesService.abilityStream$
-            .subscribe(abilities => this.possibleAbilities = abilities);
+    this.manageAbilitiesService.abilityStream$
+      .subscribe(abilities => this.possibleAbilities = abilities);
   }
 
   /**
@@ -45,21 +50,17 @@ export class FiltersComponent implements OnInit{
   public switchSort(): void {
     this.sort = this.sort === 'fromLowLevel' ? 'fromHighLevel' : 'fromLowLevel';
     switch(this.sort) {
-        case 'fromLowLevel':
-            this.iconName = 'chevronup';
-            this.sortName = 'возрастанию';
-            break;
-        case 'fromHighLevel':
-            this.iconName = 'chevrondown';
-            this.sortName = 'убыванию';
-            break;
+      case 'fromLowLevel':
+        this.iconName = 'chevronup';
+        this.sortName = 'возрастанию';
+        break;
+      case 'fromHighLevel':
+        this.iconName = 'chevrondown';
+        this.sortName = 'убыванию';
+        break;
     }
     const sortMode: number = this.sort === 'fromLowLevel' ? 1 : -1;
     this.manageHeroesService.sortMode = sortMode;
     this.manageHeroesService.sortHeroes(sortMode);
   }
-  constructor(
-    private readonly manageAbilitiesService: ManageAbilitiesService,
-    private readonly manageHeroesService: ManageHeroesService
-  ) {}
 }

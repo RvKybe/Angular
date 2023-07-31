@@ -15,6 +15,29 @@ export class CreateHeroComponent implements OnInit {
   @Input('mode') mode!: string;
   @Input('hero') hero!: IHero;
 
+  public form = new FormGroup({
+    name: new FormControl<string>('', Validators.required),
+    power: new FormControl<number | null>(null, [Validators.required, numberValidator()]),
+    abilities: new FormControl<number[]>([], Validators.required),
+    level: new FormControl<number | null>(null, [Validators.required, numberValidator()])
+  });
+
+  public possibleAbilities: object[] = [];
+  public submitButtonText!: string;
+  public errorMessage!: string;
+  public attention = {
+    name: false,
+    power: false,
+    ability: false,
+    level: false
+  };
+
+  constructor(
+    private readonly manageHeroesService: ManageHeroesService,
+    private readonly manageAbilitiesService: ManageAbilitiesService,
+    private readonly manageHighlightService: ManageHighlightService
+  ) {}
+
   ngOnInit(): void {
     if (this.mode === 'create') {
       this.submitButtonText = this.submitButtonText = 'Создать героя';
@@ -30,17 +53,6 @@ export class CreateHeroComponent implements OnInit {
       this.form.controls.level.patchValue(this.hero.level);
     }
   }
-
-  public form = new FormGroup({
-    name: new FormControl<string>('', Validators.required),
-    power: new FormControl<number | null>(null, [Validators.required, numberValidator()]),
-    abilities: new FormControl<number[]>([], Validators.required),
-    level: new FormControl<number | null>(null, [Validators.required, numberValidator()])
-  });
-
-  public possibleAbilities: object[] = [];
-  public submitButtonText!: string;
-  public errorMessage!: string;
 
   /**
    * Функция отправки формы
@@ -69,13 +81,6 @@ export class CreateHeroComponent implements OnInit {
     }
   }
 
-  public attention = {
-    name: false,
-    power: false,
-    ability: false,
-    level: false
-  };
-
   /**
    * Функция подписки на изменения списка способностей
    * @private
@@ -91,12 +96,5 @@ export class CreateHeroComponent implements OnInit {
    */
   private highlightNecessaryInputs(): void {
     this.attention = this.manageHighlightService.highlightNecessaryInputs(this.form);
-  }
-
-  constructor(
-    private readonly manageHeroesService: ManageHeroesService,
-    private readonly manageAbilitiesService: ManageAbilitiesService,
-    private readonly manageHighlightService: ManageHighlightService
-  ) {
   }
 }
