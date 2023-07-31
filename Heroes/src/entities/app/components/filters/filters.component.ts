@@ -26,7 +26,7 @@ export class FiltersComponent implements OnInit{
       this.abilityUpdateSubscribe();
       this.manageAbilitiesService.getAbilities();
       this.form.valueChanges
-          .subscribe((form): void => {
+          .subscribe((): void => {
               this.manageHeroesService.filterHeroes(this.form.value);
           });
   }
