@@ -8,7 +8,7 @@ import {Subject} from "rxjs";
 export class ManageHeroesService {
   public heroes:IHero[] = [];
   public filteredHeroes: IHero[] = [];
-  public stream:Subject<IHero[]> = new Subject();
+  public heroStream$:Subject<IHero[]> = new Subject();
   public savedFilters: any = null;
   public sortMode: number = 1;
   public counter: number = 1;
@@ -21,7 +21,7 @@ export class ManageHeroesService {
     hero.id = this.counter++;
     this.heroes.push(hero);
     this.sortHeroes(this.sortMode);
-    this.savedFilters ? this.filterHeroes(this.savedFilters) : this.stream.next(this.heroes);
+    this.savedFilters ? this.filterHeroes(this.savedFilters) : this.heroStream$.next(this.heroes);
   }
 
   /**
@@ -35,7 +35,7 @@ export class ManageHeroesService {
     })
     this.heroes[heroIndex] = hero;
     this.sortHeroes(this.sortMode);
-    this.savedFilters ? this.filterHeroes(this.savedFilters) : this.stream.next(this.heroes);
+    this.savedFilters ? this.filterHeroes(this.savedFilters) : this.heroStream$.next(this.heroes);
   }
 
   /**
@@ -50,7 +50,7 @@ export class ManageHeroesService {
           && (!filterParameters.abilities || this.searchAbilityName(filterParameters.abilities, hero.abilities))
           && (!filterParameters.searchText || hero.name.indexOf(filterParameters.searchText) > -1);
     });
-    this.stream.next(this.filteredHeroes);
+    this.heroStream$.next(this.filteredHeroes);
   }
 
   /**
@@ -69,10 +69,10 @@ export class ManageHeroesService {
    * @param newHeroId - id нового героя (или измененного старого)
    */
   public hasDuplicate(newHeroName: string, newHeroId?: number): boolean {
-    return !this.heroes.some(hero => {
-          return hero.name === newHeroName && newHeroId !== hero.id;
-        })
-      || this.heroes.length === 0;
+    if (this.heroes.length === 0) return false;
+    return this.heroes.some(hero => {
+      return hero.name === newHeroName && newHeroId !== hero.id;
+    });
   }
 
   /**

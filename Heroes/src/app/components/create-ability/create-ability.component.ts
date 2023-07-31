@@ -10,20 +10,24 @@ import {ManageAbilitiesService} from "../../services/manage-abilities.service";
 export class CreateAbilityComponent {
 
   public form: FormGroup = new FormGroup({
-      abilityName: new FormControl<string | null>(null, Validators.required)
+    abilityName: new FormControl<string | null>(null, Validators.required)
   });
 
   /**
    * Функция создания способности героя.
    */
   public createAbility(): void {
-        if (this.form.valid && !this.manageAbilitiesServices.hasDuplicate(<string>this.form.value.abilityName)) {
-            this.manageAbilitiesServices.add(<string>this.form.value.abilityName);
-            this.form.reset();
-        } else {
-            this.attentionAbility = true;
-        }
+    const hasDuplicate: boolean = this.manageAbilitiesServices.hasDuplicate(<string>this.form.value.abilityName);
+    if (this.form.valid && !hasDuplicate) {
+      this.manageAbilitiesServices.add(<string>this.form.value.abilityName);
+      this.form.reset();
+    } else {
+      this.attentionAbility = true;
     }
+    if (hasDuplicate) {
+
+    }
+  }
   public attentionAbility: boolean = false;
 
   constructor(private readonly manageAbilitiesServices: ManageAbilitiesService) {}

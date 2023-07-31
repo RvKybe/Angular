@@ -15,7 +15,7 @@ export class CreateHeroComponent implements OnInit {
   @Input('mode') mode!: string;
   @Input('hero') hero!: IHero;
 
-  ngOnInit(): void { //todo: проверка на существующего героя (сообщение о повторе)
+  ngOnInit(): void {
     if (this.mode === 'create') {
       this.submitButtonText = this.submitButtonText = 'Создать героя';
       this.abilityUpdateSubscribe(); // Здесь
@@ -40,24 +40,32 @@ export class CreateHeroComponent implements OnInit {
 
   public possibleAbilities: object[] = [];
   public submitButtonText!: string;
+  public errorMessage!: string;
 
   /**
    * Функция отправки формы
    */
   public submit(): void {
+    this.errorMessage = '';
+    let hasDuplicate!: boolean;
     if (this.mode === 'create') {
-      if (this.form.valid && this.manageHeroesService.hasDuplicate(<string>this.form.value.name)) {
+      hasDuplicate = this.manageHeroesService.hasDuplicate(<string>this.form.value.name);
+      if (this.form.valid && !hasDuplicate) {
         this.manageHeroesService.add(<IHero>this.form.value);
         this.form.reset();
       } else {
         this.highlightNecessaryInputs();
       }
     } else if (this.mode === 'edit') {
-      if (this.form.valid && this.manageHeroesService.hasDuplicate(<string>this.form.value.name, <number>this.hero.id)) {
+      hasDuplicate = this.manageHeroesService.hasDuplicate(<string>this.form.value.name, <number>this.hero.id);
+      if (this.form.valid && !hasDuplicate) {
         this.manageHeroesService.edit(<number>this.hero.id, <IHero>this.form.value);
       } else {
         this.highlightNecessaryInputs();
       }
+    }
+    if (hasDuplicate) {
+      this.errorMessage = 'Такой герой уже существует';
     }
   }
 
@@ -73,7 +81,7 @@ export class CreateHeroComponent implements OnInit {
    * @private
    */
   private abilityUpdateSubscribe(): void {
-    this.manageAbilitiesService.stream
+    this.manageAbilitiesService.abilityStream$
       .subscribe(abilities => this.possibleAbilities = abilities);
   }
 

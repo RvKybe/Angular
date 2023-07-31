@@ -7,7 +7,7 @@ import {IAbility} from "../model/ability.interface";
 })
 export class ManageAbilitiesService {
 
-  public stream:Subject<IAbility[]> = new Subject();
+  public abilityStream$:Subject<IAbility[]> = new Subject();
 
   /**
    * Функция создания способности
@@ -56,7 +56,7 @@ export class ManageAbilitiesService {
    * @private
    */
   private sendAbilities() {
-    this.stream.next(this.possibleAbilities);
+    this.abilityStream$.next(this.possibleAbilities);
   }
 
   private possibleAbilities: IAbility[] = [

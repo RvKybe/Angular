@@ -35,7 +35,7 @@ export class FiltersComponent implements OnInit{
    * Подписка на изменения в списке способностей
    */
   public abilityUpdateSubscribe():void {
-        this.manageAbilitiesService.stream
+        this.manageAbilitiesService.abilityStream$
             .subscribe(abilities => this.possibleAbilities = abilities);
   }
 

@@ -11,7 +11,7 @@ export class OutputComponent implements OnInit{
   public heroes:IHero[] = [];
 
   ngOnInit() {
-    this.manageHeroService.stream.subscribe(item => this.heroes = item);
+    this.manageHeroService.heroStream$.subscribe(item => this.heroes = item);
   }
 
   constructor(private readonly manageHeroService: ManageHeroesService) {}
