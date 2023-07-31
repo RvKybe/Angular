@@ -1,0 +1,36 @@
+<div class="hero">
+    <div class="hero__title">
+      <span [textContent]="hero.name"></span>
+      <span>{{ hero.level }} ур.</span>
+    </div>
+    <dx-button [icon]="icon"
+               (onClick)="changeDisplay()"
+    ></dx-button>
+  <ng-container *ngIf="isVisible">
+    <span>Сила: {{ hero.power }}</span>
+    <br>
+    <span>Способности:</span>
+      <span *ngFor="let ability of abilitiesList"
+            [textContent]="ability"
+            class="ability-item"
+      ></span>
+    <br>
+    <div class="button-container">
+      <dx-button (click)="switchPopupDisplay(true)"
+                 text="Редактировать"
+                 class="edit-button"
+      ></dx-button>
+    </div>
+  </ng-container>
+</div>
+<dx-popup [(visible)]="popupVisible"
+          [hideOnOutsideClick]="true"
+          [showTitle]="true"
+          [dragEnabled]="false"
+          title="Edit Hero"
+          container="body">
+    <app-create-hero *ngIf="popupVisible"
+                     mode="edit"
+                     [hero]="hero"
+    ></app-create-hero>
+</dx-popup>

@@ -1,0 +1,73 @@
+<form [formGroup]="form">
+  <div class="dx-fieldset">
+    <div class="dx-field">
+      <div class="dx-field-label">Имя:</div>
+      <div class="dx-field-value">
+        <dx-text-box
+            [showClearButton]="true"
+            [ngClass]="{
+            'textbox-attention': attention.name,
+            }"
+            (onFocusIn)="attention.name = false"
+            formControlName="name"
+            placeholder="John Smith"
+        ></dx-text-box>
+      </div>
+    </div>
+    <div class="dx-field">
+      <div class="dx-field-label">
+        Сила:
+      </div>
+      <div class="dx-field-value">
+        <dx-text-box
+          [showClearButton]="true"
+          [ngClass]="{
+            'textbox-attention': attention.power,
+          }"
+          (onFocusIn)="attention.power = false"
+          formControlName="power"
+          placeholder="6"
+        ></dx-text-box>
+      </div>
+    </div>
+    <div class="dx-field">
+      <div class="dx-field-label">
+        Способности:
+      </div>
+      <div class="dx-field-value">
+        <dx-tag-box
+          [dataSource]="possibleAbilities"
+          displayExpr="name"
+          valueExpr="id"
+          [hideSelectedItems]="true"
+          [ngClass]="{
+            'textbox-attention': attention.ability,
+          }"
+          (onFocusIn)="attention.ability = false"
+          formControlName="abilities"
+          placeholder="Teleportation"
+        ></dx-tag-box>
+      </div>
+    </div>
+    <div class="dx-field">
+      <div class="dx-field-label">
+        Уровень:
+      </div>
+      <div class="dx-field-value">
+        <dx-text-box
+          [ngClass]="{
+            'textbox-attention': attention.level,
+            }"
+          (onFocusIn)="attention.level = false"
+          formControlName="level"
+          placeholder="13"
+        ></dx-text-box>
+      </div>
+    </div>
+      <div class="button-container">
+          <dx-button [text]="submitButtonText"
+                     (onClick)="submit()"
+          ></dx-button>
+      </div>
+  </div>
+</form>

@@ -1,0 +1,15 @@
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  flex-wrap: wrap;
+}
+.column-a {
+  width: 40%;
+    height: 100%;
+}
+.column-b {
+  width: 60%;
+}
+

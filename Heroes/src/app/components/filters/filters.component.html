@@ -1,0 +1,36 @@
+<form [formGroup]="form"
+      class="filter-form">
+  <div class="filter-form__sort-item">
+    <span>Уровень героя:</span>
+    <span>от</span>
+    <dx-text-box formControlName="levelFloor"
+                 class="text-box--size-s"
+    ></dx-text-box>
+    <span>до</span>
+    <dx-text-box formControlName="levelCeil"
+                 class="text-box--size-s"
+    ></dx-text-box>
+  </div>
+   <div class="filter-form__sort-item sort-item__abilities">
+     <span>Способности:</span>
+     <dx-tag-box [dataSource]="possibleAbilities"
+                 displayExpr="name"
+                 valueExpr="id"
+                 [hideSelectedItems]="true"
+                 [width]="'95%'"
+                 formControlName="abilities"
+                 placeholder=""
+     ></dx-tag-box>
+   </div>
+  <div class="filter-form__sort-item">
+    <span>Поиск по имени:</span>
+    <dx-text-box formControlName="searchText"
+    ></dx-text-box>
+  </div>
+  <div class="filter-form__sort-item">
+    <span>Сортировать по {{ sortName }} уровня:</span>
+      <dx-button [icon]="iconName"
+                 (click)="switchSort()"
+      ></dx-button>
+  </div>
+</form>
