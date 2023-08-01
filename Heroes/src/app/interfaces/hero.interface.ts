@@ -4,7 +4,7 @@
 export interface IHero {
     name: string;
     power: number;
-    abilities: number[];
+    abilityIds: number[];
     level: number;
-    id?:number;
+    id?: number;
 }

@@ -2,6 +2,6 @@
  * Интерфейс способности
  */
 export interface IAbility {
-    id: number,
-    name: string
+    id: number;
+    name: string;
 }

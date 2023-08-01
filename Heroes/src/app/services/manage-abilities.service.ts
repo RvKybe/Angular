@@ -1,36 +1,37 @@
 import { Injectable } from '@angular/core';
-import {Subject} from "rxjs";
-import {IAbility} from "../model/ability.interface";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
+import {IAbility} from "../interfaces/ability.interface";
+import {EAbility} from "../enums/ability.enum";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ManageAbilitiesService {
 
-  public abilityStream$:Subject<IAbility[]> = new Subject();
-
   /**
    * Функция создания способности
    * @param abilityName - название созданной способности
    */
-  public add(abilityName: string) {
+  public add(abilityName: string): void {
+    const obj: IAbility = <IAbility>this._possibleAbilities.at(-1)
+    let lid: number = obj.id;
     const newAbility: IAbility = {
-        id: ++this.lastId,
+        id: ++lid,
         name: abilityName,
-    }
-    this.possibleAbilities.push(newAbility);
-    this.sendAbilities();
+    };
+    this._possibleAbilities.push(newAbility);
+    this._sendAbilities();
   }
 
   /**
    * Функция получения названий способностей по их id
    * @param heroAbilities - список id способностей героя
    */
-  public getAbilityNamesByIds (heroAbilities: number[]): string[]{
-    const  abilitiesList: string[] = [];
-    this.possibleAbilities.forEach(ability => {
-      if (heroAbilities.includes(ability.id)) {
-        abilitiesList.push(ability.name);
+  public getAbilityNamesByIds(heroAbilities: number[]): string[] {
+    const abilitiesList: string[] = [];
+    this._possibleAbilities.forEach((ability: IAbility) => {
+      if (heroAbilities.includes(ability[EAbility.ID])) {
+        abilitiesList.push(ability[EAbility.NAME]);
       }
     })
     return abilitiesList;
@@ -41,25 +42,25 @@ export class ManageAbilitiesService {
    * @param abilityName - название новой способности
    */
   public hasDuplicate(abilityName: string): boolean {
-    return this.possibleAbilities.some(ability => ability.name === abilityName);
+    return this._possibleAbilities.some(ability => ability[EAbility.NAME] === abilityName);
   }
 
   /**
    * Функция для первичного получения списка способностей
    */
-  public getAbilities () {
-    this.sendAbilities();
+  public getAbilities (): void {
+    this._sendAbilities();
   }
 
   /**
    * Функция отправки списка способностей
    * @private
    */
-  private sendAbilities() {
-    this.abilityStream$.next(this.possibleAbilities);
+  private _sendAbilities(): void {
+    this._abilityStream$.next(this._possibleAbilities);
   }
 
-  private possibleAbilities: IAbility[] = [
+  private _possibleAbilities: IAbility[] = [
     {
       id: 1,
       name: 'Суперсила'
@@ -76,7 +77,7 @@ export class ManageAbilitiesService {
       id: 4,
       name: 'Деньги'
     },
-
   ];
-  private lastId: number = 4;
+  private _abilityStream$: BehaviorSubject<IAbility[]> = new BehaviorSubject(this._possibleAbilities);
+  public abilityStream$: Observable<IAbility[]> = this._abilityStream$.asObservable();
 }

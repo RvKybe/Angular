@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {DxButtonModule, DxPopupModule, DxSelectBoxModule, DxTagBoxModule, DxTextBoxModule} from "devextreme-angular";
-import { CreateHeroComponent } from './components/create-hero/create-hero.component';
-import { CreateAbilityComponent } from './components/create-ability/create-ability.component';
-import { FiltersComponent } from './components/filters/filters.component';
-import { OutputComponent } from './components/output/output.component';
-import { OutputHeroComponent } from './components/output-hero/output-hero.component';
+import { CreateHeroComponent } from './entities/components/create-hero/create-hero.component';
+import { CreateAbilityComponent } from './entities/components/create-ability/create-ability.component';
+import { FiltersComponent } from './entities/components/filters/filters.component';
+import { OutputComponent } from './entities/components/output/output.component';
+import { OutputHeroComponent } from './entities/components/output-hero/output-hero.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { GetAbilitiesNamesByIdsPipe } from './pipes/get-abilities-names-by-ids.pipe';
 
 @NgModule({
   declarations: [
@@ -19,10 +19,10 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     FiltersComponent,
     OutputComponent,
     OutputHeroComponent,
+    GetAbilitiesNamesByIdsPipe,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     DxTextBoxModule,
     DxSelectBoxModule,
     DxButtonModule,

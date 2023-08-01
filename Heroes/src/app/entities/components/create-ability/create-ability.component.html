@@ -1,5 +1,4 @@
-<form [formGroup]="form"
-      class="create-ability">
+<form class="create-ability">
   <div class="dx-fieldset">
     <div class="dx-field">
       <p>
@@ -7,14 +6,13 @@
       </p>
       <dx-text-box
         [showClearButton]="true"
-        [ngClass]="{
-          'textbox-attention': attentionAbility,
-        }"
-        (onFocusIn)="attentionAbility = false"
-        formControlName="abilityName"
+        [isValid]="abilityNameFormControl.valid || abilityNameFormControl.untouched"
+        [formControl]="abilityNameFormControl"
         placeholder="Laser eyes"
       ></dx-text-box>
     </div>
+    <div [textContent]="errorMessage"
+    ></div>
     <div class="button-container">
       <dx-button (onClick)="createAbility()"
                  text="Добавить"

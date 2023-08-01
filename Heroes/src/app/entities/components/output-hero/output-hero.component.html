@@ -1,22 +1,28 @@
 <div class="hero">
-    <div class="hero__title">
-      <span [textContent]="hero.name"></span>
-      <span>{{ hero.level }} ур.</span>
+  <div class="hero__title">
+    <div>
+      {{ hero.name }}
     </div>
-    <dx-button [icon]="icon"
-               (onClick)="changeDisplay()"
-    ></dx-button>
+    <div>
+      {{ hero.level }} ур.
+    </div>
+  </div>
+  <dx-button [icon]="icon"
+             (onClick)="changeDisplay()"
+  ></dx-button>
   <ng-container *ngIf="isVisible">
-    <span>Сила: {{ hero.power }}</span>
-    <br>
-    <span>Способности:</span>
-      <span *ngFor="let ability of abilitiesList"
-            [textContent]="ability"
-            class="ability-item"
-      ></span>
-    <br>
+    <div>
+      Сила: {{ hero.power }}
+    </div>
+    <div>
+      Способности:
+    </div>
+    <div *ngFor="let abilityId of hero.abilityIds"
+         class="ability-item">
+      {{ abilityId | getAbilitiesNamesByIds }}
+    </div>
     <div class="button-container">
-      <dx-button (click)="switchPopupDisplay(true)"
+      <dx-button (click)="switchPopupDisplay( true)"
                  text="Редактировать"
                  class="edit-button"
       ></dx-button>
