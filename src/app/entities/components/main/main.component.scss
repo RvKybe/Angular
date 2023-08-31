@@ -1,0 +1,74 @@
+@import "src/assets/styles/_theming.scss";
+
+:host {
+  @include fullSize;
+  @include flexWrapper(column, normal, normal);
+  gap: 16px;
+  padding: 16px;
+  width: 1548px;
+  height: 900px;
+  border-radius: 10px;
+  background: var(--base-fafafa, $base);
+
+  .input {
+    @include flexWrapper(row, normal, center);
+    gap: 24px;
+
+    &__semester {
+      display: flex;
+      width: 369px;
+      height: 48px;
+      padding: 12px 16px;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      border: 1px solid var(--gray-1-d-9-d-9-d-9, $gray-1);
+      background: var(--base-fafafa, $base);
+    }
+
+    &__filial {
+      display: flex;
+      width: 238px;
+      height: 48px;
+      padding: 12px 16px;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      border: 1px solid var(--gray-1-d-9-d-9-d-9, $gray-1);
+      background: var(--base-fafafa, $base);
+    }
+
+    &__cathedra {
+      display: flex;
+      width: 893px;
+      height: 48px;
+      padding: 12px 16px;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      border: 1px solid var(--gray-1-d-9-d-9-d-9, $gray-1);
+      background: var(--base-fafafa, $base);
+
+      &-small {
+        width: 631px;
+      }
+    }
+
+    &__make-report {
+      display: flex;
+      width: 238px;
+      height: 48px;
+      padding: 12px 16px;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      background: var(--main-blue-2979-ff, $main-blue);
+      color: $base;
+    }
+  }
+}

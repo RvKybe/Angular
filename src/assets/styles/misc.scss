@@ -1,0 +1,31 @@
+$margin: rem(16px);
+$padding: rem(16px);
+$border-radius: 8px;
+
+@function rem($px) {
+  @return $px / 16px + 0rem;
+}
+
+@function em($px) {
+  @return $px / 14px + 0em;
+}
+
+@function w($px) {
+    @return ($px / 16px + 0vw) / 1.1;
+}
+
+@function margin_plus($multiplier) {
+    @return $margin * $multiplier;
+}
+
+@function margin_minus($divider) {
+    @return $margin / $divider;
+}
+
+@function padding_plus($multiplier) {
+    @return $padding * $multiplier;
+}
+
+@function padding_minus($divider) {
+    @return $padding / $divider;
+}

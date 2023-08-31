@@ -1,0 +1,7 @@
+@import "src/assets/styles/_theming.scss";
+
+:host {
+  @include fullSize;
+  box-sizing: border-box;
+  display: flex;
+}

@@ -1,0 +1,44 @@
+
+<div class="input">
+  <dx-select-box [dataSource]="termData"
+                 [showClearButton]="true"
+                 [formControl]="semesterControl"
+                 [isValid]="semesterControl.untouched || semesterControl.valid"
+                 [displayExpr]="LItem.NAME"
+                 [valueExpr]="LItem.ID"
+                 placeholder="Семестр"
+                 stylingMode="outlined"
+                 class="input__semester"
+  ></dx-select-box>
+  <dx-select-box [dataSource]="branchData"
+                 [showClearButton]="true"
+                 [formControl]="filialControl"
+                 [isValid]="filialControl.untouched || filialControl.valid"
+                 [displayExpr]="LItem.NAME"
+                 [valueExpr]="LItem.ID"
+                 placeholder="Филиал"
+                 stylingMode="outlined"
+                 class="input__filial"
+  ></dx-select-box>
+  <dx-select-box [dataSource]="departmentData"
+                 [showClearButton]="true"
+                 [class.input__cathedra-small]="viewMode === EViewMode.PLANNING_MODE"
+                 [formControl]="cathedraControl"
+                 [isValid]="cathedraControl.untouched || cathedraControl.valid"
+                 [displayExpr]="LItem.NAME"
+                 [valueExpr]="LItem.ID"
+                 placeholder="Кафедра"
+                 stylingMode="outlined"
+                 class="input__cathedra"
+  ></dx-select-box>
+  <div>
+    <dx-button *ngIf="viewMode === EViewMode.PLANNING_MODE"
+               (click)="createPdfReport()"
+               stylingMode="contained"
+               text="Сформировать отчет"
+               class="input__make-report"
+    ></dx-button>
+  </div>
+</div>
+<gl-data-grid-page
+></gl-data-grid-page>

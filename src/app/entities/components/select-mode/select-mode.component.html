@@ -1,0 +1,12 @@
+<div class="select-mode">
+  <div class="select-mode__item"
+       [class.select-mode__item-selected]="viewMode === EViewMode.WORKLOAD_MODE"
+       (click)="changeViewMode(EViewMode.WORKLOAD_MODE)">
+    Распределение нагрузки
+  </div>
+  <div class="select-mode__item"
+       [class.select-mode__item-selected]="viewMode === EViewMode.PLANNING_MODE"
+       (click)="changeViewMode(EViewMode.PLANNING_MODE)">
+    Плановая/фактическая нагрузка
+  </div>
+</div>

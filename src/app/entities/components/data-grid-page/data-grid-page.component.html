@@ -1,0 +1,48 @@
+<dx-data-grid [dataSource]="dataGridData"
+              [allowColumnReordering]="false"
+              [showBorders]="false"
+              [showColumnLines]="false"
+              [showRowLines]="false"
+              [hoverStateEnabled]="true"
+              [wordWrapEnabled]="true"
+              keyExpr="ID">
+  <ng-container *ngIf="viewMode === EViewMode.WORKLOAD_MODE">
+    <dxo-paging [pageSize]="11"
+    ></dxo-paging>
+    <dxo-pager [visible]="false"
+    ></dxo-pager>
+    <dxi-column [dataField]="EWorkloadGridFields.SUBJECT"
+                [caption]="EWorkloadGridFieldsName.SUBJECT"
+                alignment="left"
+    ></dxi-column>
+    <dxi-column [dataField]="EWorkloadGridFields.GROUPS"
+                [caption]="EWorkloadGridFieldsName.GROUPS"
+                alignment="left"
+    ></dxi-column>
+    <dxi-column [dataField]="EWorkloadGridFields.TYPE"
+                [caption]="EWorkloadGridFieldsName.TYPE"
+                alignment="left"
+    ></dxi-column>
+    <dxi-column [dataField]="EWorkloadGridFields.HOURS"
+                [caption]="EWorkloadGridFieldsName.HOURS"
+                [width]="'10%'"
+                alignment="left"
+    ></dxi-column>
+  </ng-container>
+  <ng-container *ngIf="viewMode === EViewMode.PLANNING_MODE">
+    <dxi-column [dataField]="EWorkloadGridFields.KIND_OF_WORK"
+                [caption]="EWorkloadGridFieldsName.KIND_OF_WORK"
+                alignment="left"
+    ></dxi-column>
+    <dxi-column [dataField]="EWorkloadGridFields.PLAN"
+                [caption]="EWorkloadGridFieldsName.PLAN"
+                alignment="left"
+    ></dxi-column>
+    <dxi-column [dataField]="EWorkloadGridFields.RESULT"
+                [caption]="EWorkloadGridFieldsName.RESULT"
+                [width]="'10%'"
+                alignment="left"
+    ></dxi-column>
+  </ng-container>
+</dx-data-grid>
+

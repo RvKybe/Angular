@@ -1,0 +1,15 @@
+@import "src/assets/styles/theming";
+
+:host {
+  display: flex;
+  width: 1548px;
+  height: 593px;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-shrink: 0;
+
+  dx-data-grid {
+    @include fullSize;
+  }
+}
+
